@@ -4,6 +4,7 @@ import { binRun } from './utils.mjs'
 
 const htmlFilePaths = []
 
+/** 读取文件夹包括子文件夹下所有的html */
 function readDir(dir) {
   const files = fs.readdirSync(dir)
   for (const file of files) {
@@ -25,13 +26,14 @@ function modifyHtml(content, filePath) {
 
 /** 修改路径前缀 */
 function changeBaseHref(content, filePath) {
-  const reg = /@r@e@l@a@/g
+  const reg = /(<base[^>]*href=")[^"]*("[^>]*>)/gi
   const prefix = calcPath(filePath, 'dist')
 
-  content = content.replace(reg, prefix)
+  content = content.replace(reg, `$1${prefix}$2`)
   return content
 }
 
+// path.relative算出来把html文件当成目录,所以会多一层，这里就是处理成能正常cd到的层数
 function calcPath(from, to) {
   const originRes = path.relative(from, to)
   const cdLen = originRes.split('\\').length - 1

@@ -57,9 +57,7 @@ export default {
     // },
     // publicPath: '/',
   },
-  buildDir: 'nuxt-dist',
-  render: {},
   router: {
-    base: isDev ? '/' : './', // 添加一个奇怪的base，用于在node脚本中把目录把目录变成相对路径 @r@e@l@a@
+    base: isDev ? '/' : './',
   },
 }
