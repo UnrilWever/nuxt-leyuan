@@ -15,11 +15,17 @@ export function createRouter(
   const options =
     routerOptions || createDefaultRouter(ssrContext, config).options
 
-  return new Router({
+  const router = new Router({
     ...options,
 
     routes: fixRoutes(options.routes, store),
   })
+
+  router.beforeEach((to, from, next) => {
+    console.log('beforeEacth')
+    next('index')
+  })
+  return router
 }
 
 function fixRoutes(defaultRoutes, store) {
@@ -30,14 +36,15 @@ function fixRoutes(defaultRoutes, store) {
   // default routes that come from `pages/`
   // Filter some routes using the content of the store for example
   return defaultRoutes.map((item) => {
-    if (process.browser) {
-      item.path =
-        item.name === 'index'
-          ? basePath + item.path + 'index.html'
-          : basePath + item.path + '/index.html'
+    // 文件绝对路径路由匹配
+    // if (process.browser) {
+    //   item.path =
+    //     item.name === 'index'
+    //       ? basePath + item.path + 'index.html'
+    //       : basePath + item.path + '/index.html'
 
-      console.log(item)
-    }
+    //   console.log(item)
+    // }
     return item
   })
 }

@@ -4,6 +4,7 @@ const isDev = process.env.NODE_ENV !== 'production'
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'app-233leyuan-v7',
@@ -37,6 +38,7 @@ export default {
   ],
   // 开发环境用vite要把ssr关掉，不然页面无法正常显示
   ssr: !isDev,
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
@@ -70,6 +72,7 @@ export default {
     },
   },
   router: {
+    mode: 'hash',
     base: isDev ? '/' : './',
     // base: '/',
   },
