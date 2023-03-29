@@ -2,22 +2,22 @@
   <div class="container">
     <h1>点击跳转页面</h1>
     <h1>
-      <NuxtLink to="/home/arealist/index.html">跳转到arealist</NuxtLink>
-      <NuxtLink to="/sth/index.html">跳转到arealist</NuxtLink>
-      <!-- <a href="./home/arealist/index.html">跳转到arealist</a>
-      <a href="./home/arealist/index.html">跳转到arealist</a> -->
+      <!-- <NuxtLink to="/home/arealist">跳转到arealist</NuxtLink>
+      <NuxtLink to="/sth">跳转到arealist</NuxtLink> -->
+      <a href="./home/arealist/index.html">跳转到arealist</a>
+      <a href="./sth/index.html">跳转到arealist</a>
       <h2>gemenshishi</h2>
     </h1>
-    <client-only placeholder="Loading...">
+    <!-- <client-only placeholder="Loading..."> -->
+    <div>
+      <h1>某个组件</h1>
       <div>
-        <h1>某个组件</h1>
-        <div>
-          <div class="red">I'm arealist</div>
-          <div>{{ count }}</div>
-          <button @click="addOne">+1</button>
-        </div>
+        <div class="red">I'm arealist</div>
+        <div>{{ count }}</div>
+        <button @click="addOne">+1</button>
       </div>
-    </client-only>
+    </div>
+    <!-- </client-only> -->
   </div>
 </template>
 
@@ -30,6 +30,15 @@ export default Vue.extend({
     return {
       count: 0,
     }
+  },
+  beforeCreate() {
+    console.log('im beforeCreate')
+  },
+  created() {
+    console.log('im Created')
+  },
+  beforeMount() {
+    console.log('im beforeMount')
   },
   methods: {
     addOne() {

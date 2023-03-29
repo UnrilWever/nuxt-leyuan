@@ -64,6 +64,10 @@ export default {
     //   console.log('loaders', loaders)
     // },
     // publicPath: '/',
+    // 让打包出来的js文件不是数字名，默认是数字名，应该是为了安全考虑
+    filenames: {
+      chunk: () => '[name].js',
+    },
   },
   router: {
     base: isDev ? '/' : './',

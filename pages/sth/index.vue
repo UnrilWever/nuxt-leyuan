@@ -13,6 +13,12 @@ export default {
       count: 0,
     }
   },
+  beforeCreate() {
+    console.log('im beforeCreate')
+  },
+  beforeMount() {
+    console.log('im beforeMount')
+  },
   methods: {
     addOne() {
       this.count++

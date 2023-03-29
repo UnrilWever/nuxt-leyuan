@@ -23,11 +23,21 @@ export function createRouter(
 }
 
 function fixRoutes(defaultRoutes, store) {
+  const regex = /.*dist/g
+  let basePath = ''
+  if (process.browser) basePath = window.location.href.match(regex)[0]
+
   // default routes that come from `pages/`
   // Filter some routes using the content of the store for example
   return defaultRoutes.map((item) => {
-    item.path += (item.name === 'index' ? '' : '/') + 'index.html'
-    console.log(item)
+    if (process.browser) {
+      item.path =
+        item.name === 'index'
+          ? basePath + item.path + 'index.html'
+          : basePath + item.path + '/index.html'
+
+      console.log(item)
+    }
     return item
   })
 }
