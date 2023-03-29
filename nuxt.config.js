@@ -4,7 +4,6 @@ const isDev = process.env.NODE_ENV !== 'production'
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'app-233leyuan-v7',
@@ -42,6 +41,15 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    // 下面是修改nuxt默认路由规则的modules
+    // With options
+    [
+      '@nuxtjs/router',
+      {
+        /* module options */
+        keepDefaultRouter: true,
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -59,5 +67,6 @@ export default {
   },
   router: {
     base: isDev ? '/' : './',
+    // base: '/',
   },
 }
