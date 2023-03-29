@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="red">I'm arealist</div>
-    <div>{{ count }}</div>
+    <h1>{{ count }}</h1>
     <button @click="addOne">+1</button>
   </div>
 </template>

@@ -14,27 +14,49 @@ export function createRouter(
 ) {
   const options =
     routerOptions || createDefaultRouter(ssrContext, config).options
-
-  return new Router({
+  const router = new Router({
     ...options,
 
     routes: fixRoutes(options.routes, store),
   })
+  router.beforeEach((to, from, next) => {
+    console.log('to from', to, from)
+
+    if (process.browser) {
+      console.log(to)
+      if (to.name) {
+        next()
+      } else {
+        console.log('之后就是重定向了')
+        next({ name: 'index' })
+      }
+    } else {
+      next()
+    }
+  })
+  return router
 }
 
 function fixRoutes(defaultRoutes, store) {
-  const regex = /.*dist/g
-  let basePath = ''
-  if (process.browser) basePath = window.location.href.match(regex)[0]
+  const regex = /\/[A-Za-z]:(\/(?:[^/]+\/)+)/
 
+  let basePath = ''
+  // // if (process.browser) basePath = window.location.href.match(regex)[0]
+  if (process.browser) {
+    // const basePath = window.location.href
+    //   .replace('index.html', '')
+    //   .replace('file:///C:', '')
+
+    basePath = window.location.pathname.match(regex)[1]
+  }
   // default routes that come from `pages/`
   // Filter some routes using the content of the store for example
   return defaultRoutes.map((item) => {
     if (process.browser) {
       item.path =
         item.name === 'index'
-          ? basePath + item.path + 'index.html'
-          : basePath + item.path + '/index.html'
+          ? basePath + item.path.substring(1) + 'index.html'
+          : basePath + item.path.substring(1) + '/index.html'
 
       console.log(item)
     }
