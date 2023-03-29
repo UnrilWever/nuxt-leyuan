@@ -1,9 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// import MyPage from '~/components/my-page'
-
 Vue.use(Router)
+
+const routeMap = {}
+
+let basePath = ''
+if (process.client) {
+  const regex = /\/[A-Za-z]:(\/(?:[^/]+\/)+)/
+  basePath = window.location.pathname.match(regex)[1]
+}
 
 export function createRouter(
   ssrContext,
@@ -20,16 +26,18 @@ export function createRouter(
     routes: fixRoutes(options.routes, store),
   })
   router.beforeEach((to, from, next) => {
-    console.log('to from', to, from)
-
-    if (process.browser) {
-      console.log(to)
-      if (to.name) {
-        next()
-      } else {
-        console.log('之后就是重定向了')
-        next({ name: 'index' })
+    console.log('to,from', to, from)
+    if (process.client) {
+      const regex = /^\/[A-Za-z]:/
+      // 处理第一次跳转path 前缀有类似 /C: 这种情况
+      if (to.path.search(regex) !== -1) {
+        const newPath = to.path.replace(regex, '')
+        next({ path: newPath })
+        // 处理例如<NuxtLink to="/home/arealist">跳转到arealist</NuxtLink>这种跳转
+      } else if (routeMap[to.path]) {
+        next({ path: basePath + to.path + '/index.html' })
       }
+      next()
     } else {
       next()
     }
@@ -38,28 +46,16 @@ export function createRouter(
 }
 
 function fixRoutes(defaultRoutes, store) {
-  const regex = /\/[A-Za-z]:(\/(?:[^/]+\/)+)/
-
-  let basePath = ''
-  // // if (process.browser) basePath = window.location.href.match(regex)[0]
-  if (process.browser) {
-    // const basePath = window.location.href
-    //   .replace('index.html', '')
-    //   .replace('file:///C:', '')
-
-    basePath = window.location.pathname.match(regex)[1]
-  }
   // default routes that come from `pages/`
   // Filter some routes using the content of the store for example
   return defaultRoutes.map((item) => {
-    if (process.browser) {
-      item.path =
+    if (process.client) {
+      item.path = routeMap[item.path] =
         item.name === 'index'
           ? basePath + item.path.substring(1) + 'index.html'
           : basePath + item.path.substring(1) + '/index.html'
-
-      console.log(item)
     }
+    console.log('item', item)
     return item
   })
 }
