@@ -73,4 +73,11 @@ export default {
     base: isDev ? '/' : './',
     // base: '/',
   },
+  render: {
+    // 这两个是取消preload，但还是取消的不全
+    resourceHints: false,
+    bundleRenderer: {
+      shouldPreload: () => false,
+    },
+  },
 }
