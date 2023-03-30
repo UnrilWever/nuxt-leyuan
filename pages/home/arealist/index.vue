@@ -13,6 +13,7 @@ export default {
       count: 0,
     }
   },
+  mounted() {},
   methods: {
     addOne() {
       this.count++
