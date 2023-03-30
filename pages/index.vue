@@ -3,11 +3,11 @@
     <TheHeader />
     <h1>点击跳转页面</h1>
     <h1>
-      <NuxtLink to="/home/arealist">跳转到arealist</NuxtLink>
-      <NuxtLink to="/sth">跳转到arealist</NuxtLink>
-      <!-- <a href="./home/arealist/index.html">跳转到arealist</a>
-      <a href="./sth/index.html">跳转到arealist</a> -->
-      <h2>gemenshishi</h2>
+      <!-- <NuxtLink to="/home/arealist">跳转到arealist</NuxtLink>
+      <NuxtLink to="/sth">跳转到sth</NuxtLink> -->
+      <a href="./home/arealist/index.html?a=1">跳转到arealist</a>
+      <a href="./sth/index.html?b2">跳转到arealist</a>
+      <h2 class="h2">gemenshishi</h2>
     </h1>
     <!-- <client-only placeholder="Loading..."> -->
     <div>
@@ -60,5 +60,8 @@ export default Vue.extend({
 <style scoped>
 * {
   text-decoration: none;
+}
+.h2 {
+  font-size: 2rem;
 }
 </style>

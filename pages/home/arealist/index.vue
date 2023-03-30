@@ -3,6 +3,8 @@
     <div class="red">I'm arealist</div>
     <div>{{ count }}</div>
     <button @click="addOne">+1</button>
+    <!-- <NuxtLink to="/">跳转到首页</NuxtLink> -->
+    <a href="./index.html">跳转到首页</a>
   </div>
 </template>
 

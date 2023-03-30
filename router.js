@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { throttle } from 'lodash'
 
 Vue.use(Router)
 
 // 判断是否为开发环境
 const isDev = process.env.NODE_ENV !== 'production'
-
+// 路由path到name的map
 const routeMap = {}
 
 let basePath = ''
@@ -31,21 +32,30 @@ export function createRouter(
 
     routes: fixRoutes(options.routes, store),
   })
-  router.beforeEach((to, from, next) => {
-    // console.log('to,from', to, from)
-    // 不是客户端或者是开发环境不进行路由替换
-    if (!process.client || isDev) next()
-
+  router.beforeEach(function (to, from, next) {
+    console.log('from to', from, to)
+    // 不是客户端 或者 是开发环境 不进行路由替换
+    if (!process.client || isDev) {
+      next()
+      return
+    }
     const regex = /^\/[A-Za-z]:/
     // 处理第一次跳转path 前缀有类似 /C: 这种情况
-    if (to.path.search(regex) !== -1) {
+    if (to.path.search(regex) !== -1 && !to.name) {
       const newPath = to.path.replace(regex, '')
-      next({ path: newPath })
+      console.log('之后调用next({ path: newPath })', newPath)
+      next({ path: newPath, replace: true })
       // 处理例如<NuxtLink to="/home/arealist">跳转到arealist</NuxtLink>这种跳转
     } else if (routeMap[to.path]) {
-      next({ path: basePath + to.path + '/index.html' })
+      console.log(
+        '之后调用next({ name: routeMap[to.path] })',
+        routeMap[to.path]
+      )
+      next({ path: routeMap[to.path], replace: true })
+    } else {
+      console.log('之后调用next()', to.path)
+      next({ replace: true })
     }
-    next()
   })
   return router
 }
@@ -56,11 +66,12 @@ function fixRoutes(defaultRoutes, store) {
   // default routes that come from `pages/`
   // Filter some routes using the content of the store for example
   return defaultRoutes.map((item) => {
+    // 路由path到name的map
+    // routeMap[item.path] = item.name
     item.path = routeMap[item.path] =
       item.name === 'index'
         ? basePath + item.path.substring(1) + 'index.html'
         : basePath + item.path.substring(1) + '/index.html'
-    // console.log('item', item)
     return item
   })
 }
