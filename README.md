@@ -1,4 +1,4 @@
-# app-233leyuan-v7
+nuxt2-offline-template
 
 ## Build Setup
 
