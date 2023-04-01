@@ -10,42 +10,68 @@
       <button @click="sendRequest">发送请求</button>
       <button @click="cancelRequest">取消请求</button>
     </div>
+    <div>
+      <h1>-----js进行路由跳转-----</h1>
+      <button @click="navigateTo({ path: '/', query: { q: '1' } })">
+        跳转首页
+      </button>
+    </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { RawLocation } from "vue-router";
+import { defineComponent } from "vue";
+
+let cancel: Function;
+
+export default defineComponent({
+  /**  */
   data() {
     return {
       count: 0,
-      cancel: null,
       CancelToken: this.$axios.CancelToken,
-    }
+    };
   },
+  /**  */
   beforeCreate() {
-    console.log('im sth beforeCreate')
+    console.log("im sth beforeCreate");
   },
+  /**  */
   beforeMount() {
-    console.log('im sth beforeMount')
+    console.log("im sth beforeMount");
   },
   methods: {
+    /**  */
     addOne() {
-      this.count++
-      console.log('哥们执行了')
+      this.count++;
+      console.log("哥们执行了");
     },
+    /**  */
     sendRequest() {
-      this.$axios.$get('/user/12345', {
+      this.$axios.$get("/user/12345", {
         cancelToken: new this.CancelToken((c) => {
           // An executor function receives a cancel function as a parameter
-          this.cancel = c
+          cancel = c;
         }),
-      })
+      });
     },
+    /**  */
     cancelRequest() {
-      this.cancel()
+      cancel();
+    },
+    /**  */
+    navigateTo(options: RawLocation) {
+      console.log("      window.location.assign(./index.html options", options);
+      window.location.assign("./index.html");
+      this.$fileRouter.push({
+        path: "/sth",
+        query: { a: "1" },
+        params: { id: "1" },
+      });
     },
   },
-}
+});
 </script>
 
 <style>

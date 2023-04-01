@@ -5,8 +5,14 @@
     <h1>
       <!-- <NuxtLink to="/home/arealist">跳转到arealist</NuxtLink>
       <NuxtLink to="/sth">跳转到sth</NuxtLink> -->
-      <a href="./home/arealist/index.html?a=1">跳转到arealist</a>
-      <a href="./sth/index.html?b2">跳转到arealist</a>
+      <!-- <a href="./home/arealist/index.html?a=1">跳转到arealist</a>
+      <a href="./sth/index.html?b2">跳转到sth</a> -->
+
+      <FileLink to="/home/arealist">跳转到arealist</FileLink>
+      <FileLink
+        :to="{ path: '/home/arealist', query: { q: 1 }, params: { id: 1 } }"
+        >跳转到arealist带query params</FileLink
+      >
       <h2 class="h2">gemenshishi</h2>
     </h1>
     <!-- <client-only placeholder="Loading..."> -->
@@ -22,46 +28,56 @@
     <h1>{{ ip }}</h1>
     <button @click="fetchSomething">请求ip在上面显示</button>
     <!-- </client-only> -->
+    <div>
+      <FileLink to="/home/arealist/" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-  name: 'IndexPage',
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "IndexPage",
+  /** 属性 */
   data() {
     return {
       count: 0,
-      ip: '',
-    }
+      ip: "",
+    };
   },
+  /** 生命周期beforeCreate */
   beforeCreate() {
-    console.log('im index beforeCreate')
+    console.log("im index beforeCreate");
   },
+  /** 生命周期created */
   created() {
-    console.log('im index Created')
+    console.log("im index Created");
   },
+  /** 生命周期beforeMount */
   beforeMount() {
-    console.log('im index beforeMount')
+    console.log("im index beforeMount");
   },
   methods: {
+    /** 加一方法 */
     addOne() {
-      this.count++
-      console.log('哥们执行了')
+      this.count++;
+      console.log("哥们执行了");
     },
+    /** 请求IP方法 */
     async fetchSomething() {
-      const ip = await this.$axios.$get('http://icanhazip.com')
-      this.ip = ip
+      const ip = await this.$axios.$get("http://icanhazip.com");
+      this.ip = ip;
     },
   },
-})
+});
 </script>
 
-<style scoped>
-* {
+<style>
+/* * {
   text-decoration: none;
 }
 .h2 {
   font-size: 2rem;
-}
+} */
 </style>
