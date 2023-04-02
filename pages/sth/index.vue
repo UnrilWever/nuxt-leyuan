@@ -62,13 +62,7 @@ export default defineComponent({
     },
     /**  */
     navigateTo(options: RawLocation) {
-      console.log("      window.location.assign(./index.html options", options);
-      window.location.assign("./index.html");
-      this.$fileRouter.push({
-        path: "/sth",
-        query: { a: "1" },
-        params: { id: "1" },
-      });
+      this.$fileRouter.push(options);
     },
   },
 });
