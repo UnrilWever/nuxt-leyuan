@@ -65,7 +65,7 @@ export default defineComponent({
       console.log("      window.location.assign(./index.html options", options);
       window.location.assign("./index.html");
       this.$fileRouter.push({
-        path: "/sth",
+        path: "/",
         query: { a: "1" },
         params: { id: "1" },
       });

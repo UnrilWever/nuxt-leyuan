@@ -2,7 +2,7 @@
   <div class="container">
     <TheHeader />
     <h1>点击跳转页面</h1>
-    <h1>
+    <div>
       <!-- <NuxtLink to="/home/arealist">跳转到arealist</NuxtLink>
       <NuxtLink to="/sth">跳转到sth</NuxtLink> -->
       <!-- <a href="./home/arealist/index.html?a=1">跳转到arealist</a>
@@ -13,8 +13,12 @@
         :to="{ path: '/home/arealist', query: { q: 1 }, params: { id: 1 } }"
         >跳转到arealist带query params</FileLink
       >
+
+      <FileLink :to="{ path: '/sth', query: { q: 1 }, params: { id: 1 } }"
+        >跳转到sth带query params</FileLink
+      >
       <h2 class="h2">gemenshishi</h2>
-    </h1>
+    </div>
     <!-- <client-only placeholder="Loading..."> -->
     <div>
       <h1>-----某个组件-----</h1>
