@@ -5,6 +5,11 @@
     <button @click="addOne">+1</button>
     <FileLink to="/">跳转到首页</FileLink>
     <!-- <a href="./index.html">跳转到首页</a> -->
+    <div>
+      <h1>----测试能否拿到query或params----</h1>
+      <!-- <div>query:{{}}||params{{}}</div> -->
+      <button @click="seeRoute">看看route对象</button>
+    </div>
   </div>
 </template>
 
@@ -25,6 +30,10 @@ export default defineComponent({
     addOne() {
       this.count++;
       console.log("哥们执行了");
+    },
+    /** 看看router对象 */
+    seeRoute() {
+      console.log("看看route对象", this.$route);
     },
   },
 });

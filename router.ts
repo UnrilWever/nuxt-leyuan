@@ -7,7 +7,7 @@ Vue.use(Router);
 // 判断是否为开发环境
 const isDev = process.env.NODE_ENV !== "production";
 // 路由path到name的map
-const routeMap: Record<string, string> = {};
+export const routeMap: Record<string, string> = {};
 
 let basePath = "";
 // 是客户端的同时不是开发环境才改变basePath
