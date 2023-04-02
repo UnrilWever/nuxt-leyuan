@@ -19,7 +19,6 @@ const fileRouterPlugin: Plugin = ({ app }, inject) => {
     | {
         path: string;
         query?: Record<string, string>;
-        params?: Record<string, string>;
       };
   // type NavicateParam = RawLocation
 
@@ -36,8 +35,6 @@ const fileRouterPlugin: Plugin = ({ app }, inject) => {
         .join("&");
       url += `?${queryStr}`;
     }
-    // if (param.params) {
-    // }
     return url;
   }
 
@@ -46,9 +43,10 @@ const fileRouterPlugin: Plugin = ({ app }, inject) => {
     // 获取vue-router实例
     const router = app.router;
     // 判断环境变量
-    if (isDev && router) {
+    console.log("isDev", isDev);
+    if (isDev) {
       // 开发环境，用vue-router的push方法跳转
-      router.push(param);
+      router?.push(param);
     } else {
       // 生产环境，用window.location.assign方法跳转
       window.location.assign(toURL(param));

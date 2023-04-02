@@ -51,17 +51,17 @@ export function createRouter(
       return;
     }
     const regex = /^\/[A-Za-z]:/;
-    const { path, query, params } = to;
+    const { path, query } = to;
     // 处理第一次跳转path 前缀有类似 /C: 这种情况
     if (path.search(regex) !== -1 && !to.name) {
       const newPath = path.replace(regex, "");
       console.log("之后调用next({ path: newPath })", newPath);
 
-      next({ path: newPath, query, params, replace: !isDev });
+      next({ path: newPath, query, replace: !isDev });
       // 处理路由跳转例如<NuxtLink to="/home/arealist">跳转到arealist</NuxtLink>这种跳转
     } else if (routeMap[path]) {
       console.log("之后调用next({ name: routeMap[path] })", routeMap[path]);
-      next({ name: routeMap[path], query, params, replace: !isDev });
+      next({ name: routeMap[path], query, replace: !isDev });
     } else {
       console.log("之后调用next()");
       next();

@@ -46,8 +46,6 @@ export default Vue.extend({
           const queryString = new URLSearchParams(query as {}).toString();
           href = `${toRelaHtmlPath(path)}?${queryString}`;
         }
-        // if (params) {
-        // }
         return href;
       } else {
         return "";

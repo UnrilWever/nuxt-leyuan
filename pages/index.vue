@@ -9,13 +9,12 @@
       <a href="./sth/index.html?b2">跳转到sth</a> -->
 
       <FileLink to="/home/arealist">跳转到arealist</FileLink>
-      <FileLink
-        :to="{ path: '/home/arealist', query: { q: 1 }, params: { id: 1 } }"
-        >跳转到arealist带query params</FileLink
+      <FileLink :to="{ path: '/home/arealist', query: { q: 1 } }"
+        >跳转到arealist带query</FileLink
       >
 
-      <FileLink :to="{ path: '/sth', query: { q: 1 }, params: { id: 1 } }"
-        >跳转到sth带query params</FileLink
+      <FileLink :to="{ path: '/sth', query: { q: 1 } }"
+        >跳转到sth带query</FileLink
       >
       <h2 class="h2">gemenshishi</h2>
     </div>
